@@ -40,7 +40,7 @@ echo 'qarrayrun.py SGE_TASK_ID files.txt sort -o sorted.{2} {2}' | qsub -t 1-$(c
 # Use the --shell option and quote your pipeline when you need shell redirection
 # Remove blanks before sorting files
 ls *.txt > files.txt
-echo 'qarrayrun.py --shell SGE_TASK_ID files.txt "cat {1} | tr -d [:blank:] | sort > sorted.{1}"' | qsub -t 1-$(cat files.txt | wc -l) -cwd -j y -V -o log
+echo 'qarrayrun --shell SGE_TASK_ID files.txt "cat {1} | tr -d [:blank:] | sort > sorted.{1}"' | qsub -t 1-$(cat files.txt | wc -l) -cwd -j y -V -o log
 """
 
 from __future__ import print_function
@@ -99,7 +99,7 @@ def parse_arguments(system_args):
         # Use the --shell option and quote your pipeline when you need shell redirection
         # Remove blanks before sorting files
         ls *.txt > files.txt
-        echo 'qarrayrun --shell SGE_TASK_ID files.txt "cat {1} | tr -d [:blank:] | sort > sorted.{1}"' | qsub -t 1-$(cat files.txt | wc -l) -c$
+        echo 'qarrayrun --shell SGE_TASK_ID files.txt "cat {1} | tr -d [:blank:] | sort > sorted.{1}"' | qsub -t 1-$(cat files.txt | wc -l) -cwd -j y -V -o log
         """)
 
     formatter_class = argparse.RawDescriptionHelpFormatter

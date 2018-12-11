@@ -24,7 +24,7 @@ test_requirements = [
 
 setup(
     name='qarrayrun',
-    version='1.0.0',
+    version='1.0.1',
     description="A helper tool for running array jobs on an HPC computational node.",
     long_description=readme + '\n\n' + history,
     author="Steve Davis",

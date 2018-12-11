@@ -52,8 +52,7 @@ Follow these examples::
   # Use the --shell option and quote your pipeline when you need shell redirection
   # Remove blanks before sorting files
   ls *.txt > files.txt
-  echo 'qarrayrun --shell SGE_TASK_ID files.txt "cat {1} | tr -d [:blank:] | sort > sorted.{1}"' | qsub -t 1-$(cat files.txt | wc -l) -c$
-
+  echo 'qarrayrun --shell SGE_TASK_ID files.txt "cat {1} | tr -d [:blank:] | sort > sorted.{1}"' | qsub -t 1-$(cat files.txt | wc -l) -cwd -j y -V -o log
 
 Language
 --------
