@@ -3,7 +3,7 @@
 """Console script for qarrayrun.
 
 This script executes a single slot of an array job on an HPC compute node.
-It is intended to be used with Sun Grid Engine or Torque job schedulers.
+It is intended to be used with Sun Grid Engine, SLURM, or Torque job schedulers.
 It assumes every instance of the job array runs the same command but with
 different arguments.  This script performs the work of looking-up the
 arguments in a text file and substituting those arguments into the command
@@ -15,6 +15,7 @@ The script takes 3 arguments:
 
 1. Name of the environment variable that contains the sub-task number.
    You should use SGE_TASK_ID for grid engine.
+   You should use SLURM_ARRAY_TASK_ID for SLURM.
    You should use PBS_ARRAYID for torque.
 
 2. Name of the file containing the arguments for each sub-task with one line
@@ -79,10 +80,10 @@ def parse_arguments(system_args):
     """
     description = textwrap.dedent("""
         Executes a single slot of an array job on an HPC computational node. This is
-        intended to be used with Sun Grid Engine or Torque job schedulers when every
-        instance of the job array runs the same command but with different arguments.
-        This script performs the work of looking-up the arguments in a text file and
-        substituting those arguments into the command to be executed.""")
+        intended to be used with Sun Grid Engine, SLURM, or Torque job schedulers when
+        every instance of the job array runs the same command but with different
+        arguments. This script performs the work of looking-up the arguments in a text
+        file and substituting those arguments into the command to be executed.""")
 
     epilog = textwrap.dedent("""
         Examples
@@ -105,12 +106,12 @@ def parse_arguments(system_args):
     formatter_class = argparse.RawDescriptionHelpFormatter
     parser = argparse.ArgumentParser(description=description, epilog=epilog, formatter_class=formatter_class)
 
-    parser.add_argument(dest="subtask_var", type=str, metavar="NAME", help="""Name of the environment variable that contains the sub-task number
-                                                                              You should use SGE_TASK_ID with Grid Engine and PBS_ARRAYID with Torque.""")
+    parser.add_argument(dest="subtask_var", type=str, metavar="NAME", help="""Name of the environment variable that contains the sub-task number.
+                                                                              You should use SGE_TASK_ID with Grid Engine, SLURM_ARRAY_TASK_ID with SLURM, and PBS_ARRAYID with Torque.""")
     parser.add_argument(dest="array_file", type=str, help="""Name of the file containing the arguments for each sub-task with one line
                                                              per sub-task.  This script will extract the arguments for this sub-task
                                                              at the line number identified by the sub-task environment variable
-                                                             (SGE_TASK_ID or PBS_ARRAYID).  The line is parsed and substituted
+                                                             (SGE_TASK_ID, SLURM_ARRAY_TASK_ID, or PBS_ARRAYID).  The line is parsed and substituted
                                                              into the command, replacing the parameter placeholders with the actual
                                                              arguments.""")
     parser.add_argument(dest="command", help="""The remainder of the command line is the command to be executed with parameter

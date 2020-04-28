@@ -19,7 +19,7 @@ The qarrayrun package was developed by the United States Food
 and Drug Administration, Center for Food Safety and Applied Nutrition.
 
 This script executes a single slot of an array job on an HPC compute node.
-It is intended to be used with Sun Grid Engine or Torque job schedulers.
+It is intended to be used with Sun Grid Engine, SLURM, or Torque job schedulers.
 It assumes every instance of the job array runs the same command but with
 different arguments.  This script performs the work of looking-up the
 arguments in a text file and substituting those arguments into the command

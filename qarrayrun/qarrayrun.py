@@ -88,7 +88,7 @@ def run(subtask_var, array_file, command_line, shell_flag=False):
     subtask_var : str
         Name of the environment variable containing the subtask number.  This
         variable is created automatically by the HPC job execution software
-        (Grid Engine or Torque).
+        (Grid Engine, SLURM, or Torque).
     array_file : str
         Path to the file containing array job parameters with one line per array-job
         subtask.  This file must exist on a file system that is accessible to the
